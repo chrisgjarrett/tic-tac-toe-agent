@@ -1,0 +1,17 @@
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe.config
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\bin\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\obj\Debug\TicTacToeGame.csproj.GenerateResource.Cache
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\Interface\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe.config
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToeGame.csprojResolveAssemblyReference.cache
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToeGame.csproj.GenerateResource.Cache
