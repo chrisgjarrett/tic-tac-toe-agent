@@ -15,3 +15,14 @@
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.resources
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToeGame.csproj.GenerateResource.Cache
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.exe.config
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.exe
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.pdb
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToeGame.csprojResolveAssemblyReference.cache
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToeGame.csproj.GenerateResource.Cache
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.exe
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.pdb
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.GameInterface.resources
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.dll
+C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.pdb
