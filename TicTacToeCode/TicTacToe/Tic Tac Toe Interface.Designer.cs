@@ -45,7 +45,6 @@
             this.resetButton = new System.Windows.Forms.Button();
             this.ClearGameButton = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -248,24 +247,12 @@
             this.button0.UseVisualStyleBackColor = false;
             this.button0.Click += new System.EventHandler(this.button0_Click);
             // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(187, 297);
-            this.button9.Margin = new System.Windows.Forms.Padding(4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(100, 28);
-            this.button9.TabIndex = 17;
-            this.button9.Text = "Start";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.start);
-            // 
             // GameInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(501, 388);
-            this.Controls.Add(this.button9);
             this.Controls.Add(this.ClearGameButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.player2Score);
@@ -309,7 +296,6 @@
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button ClearGameButton;
         private System.Windows.Forms.Button button0;
-        private System.Windows.Forms.Button button9;
     }
 }
 

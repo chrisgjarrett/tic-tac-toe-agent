@@ -11,8 +11,9 @@ namespace Player
     public class PlayerObject
     {
         int currentScore = 0;
-        bool humanStatus=false;
+        bool humanStatus = false;
         int playerNumber = 0;
+        int[] currentGame = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         public void setPlayerNumber(int playerNumberToSet)
         {
@@ -26,10 +27,15 @@ namespace Player
 
         }
 
+        public void updateCurrentGame(ref int[] gameArray)
+        {
+            currentGame = gameArray;
+        }
+
         //This decides if the player is human
         public void assignHumanStatus(bool isHuman) {
 
-            if (isHuman == true)
+            if (isHuman)
             {
                 humanStatus = true;
             }
@@ -48,39 +54,21 @@ namespace Player
         }
 
         //This decides the next move - only relevant to computers
-        public int[] decideNextMove(int[] gameArray)
+        public void decideNextMove(ref int[] gameArray)
         {
+            int j = 0;
             //Figure which squares are playable
-            bool[] playableSquares= {false};
-
-
-            for (int i=0; i==9; i++)
+            foreach (int i in gameArray)
             {
-                if (gameArray[i] == 0)
+                System.Console.WriteLine();
+                if (i == 0)
                 {
-                    playableSquares[i] = true;
+                    gameArray[j] = getPlayerNumber();
+                    return;
                 }
+                j++;
 
-                else
-                {
-                    playableSquares[i] = false;
-
-                }
             }
-
-            //Play the first available square
-            for (int i=0; i==8; i++)
-            {
-                if (playableSquares[i] == true)
-                {
-                    gameArray[i] = getPlayerNumber();
-                    break;
-                }
-                
-            }
-                return gameArray;
-
         }
-
     }
 }
