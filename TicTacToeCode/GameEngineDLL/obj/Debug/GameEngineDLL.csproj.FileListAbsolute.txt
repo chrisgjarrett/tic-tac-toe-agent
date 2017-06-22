@@ -3,3 +3,8 @@ C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\GameEngineD
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.csprojResolveAssemblyReference.cache
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.dll
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\bin\Debug\GameEngineDLL.dll
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\bin\Debug\GameEngineDLL.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.csprojResolveAssemblyReference.cache
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.dll
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.pdb

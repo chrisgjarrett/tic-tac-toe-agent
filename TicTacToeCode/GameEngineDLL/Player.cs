@@ -57,18 +57,33 @@ namespace Player
         public void decideNextMove(ref int[] gameArray)
         {
             int j = 0;
+            int chosenSquare = -1;
+            List<int> playableSquares = new List<int>();
+
             //Figure which squares are playable
             foreach (int i in gameArray)
             {
-                System.Console.WriteLine();
+                
                 if (i == 0)
                 {
-                    gameArray[j] = getPlayerNumber();
-                    return;
+                    playableSquares.Add(j);
                 }
-                j++;
+
+                j = j + 1;
 
             }
+
+            //Debug - checking playable squares
+            for (int ii = 0; ii < playableSquares.Count; ii++)
+            {
+                System.Console.WriteLine(playableSquares[ii]);
+
+            }
+            System.Console.WriteLine(" ");
+            Random ran = new Random();
+            int index = ran.Next(playableSquares.Count);
+            chosenSquare = playableSquares[index];
+            gameArray[chosenSquare] = getPlayerNumber();
         }
     }
 }
