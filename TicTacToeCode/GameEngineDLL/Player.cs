@@ -14,6 +14,8 @@ namespace Player
         bool humanStatus = false;
         int playerNumber = 0;
         int[] currentGame = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        List<List<double>> qMatrix = new List<List<double>>();
+        
 
         public void setPlayerNumber(int playerNumberToSet)
         {
@@ -53,6 +55,53 @@ namespace Player
             return humanStatus;
         }
 
+        //This function updates the Q Matrix. It needs to be run at the end of each game, storing information about the episode.
+        public void updateQMatrix(List<int[]> states, List<int> moves, bool wonGame)
+        {
+            int reward = 0;
+            double alpha = 0.5;
+            double gamma = 0.5;
+
+            //Decide reward
+            if (wonGame == true)
+            {
+                reward = 500;
+            }
+
+            else
+            {
+                reward = -500;
+            }
+
+
+            //Cycle through states, adding the states and moves from the previous episode to the q matrix. This will be done at the end of the game, so 
+            // the states and moves need to be saved in the main code.
+            for (int i=1; i < states.Count(); i++)
+            {
+                int listRow = 0;
+                listRow=concatenateGameMatrix(states[i]);
+                qMatrix[listRow][moves[i]] = qMatrix[listRow][moves[i]] + alpha * (reward + gamma * optimalNextMove() - qMatrix[listRow][moves[i]]);
+            }
+
+            
+
+        }
+
+        //Need to code this to compute the optimal next move, based on the R matrix, or however it works
+        public int optimalNextMove()
+        {
+            int nextMove = -1;
+            return nextMove;
+        }
+
+        //This takes an array of numbers and concatenates it to a new number, composed of the numbers stuck togther.
+        //e.g. [2, 3, 4= becomes 234
+        public int concatenateGameMatrix(int[] currentGame)
+        {
+            int listIndex = 0;
+            listIndex = int.Parse(currentGame[0].ToString() + currentGame[1].ToString() + currentGame[2].ToString() + currentGame[3].ToString() + currentGame[4].ToString() + currentGame[5].ToString() + currentGame[6].ToString() + currentGame[7].ToString() + currentGame[8].ToString());
+            return listIndex;
+        }
         //This decides the next move - only relevant to computers
         public void decideNextMove(ref int[] gameArray)
         {
@@ -87,3 +136,13 @@ namespace Player
         }
     }
 }
+
+
+
+//hey big willy boy
+//you know what's more fun than coding?
+//your big ol' willy
+//if playing against imo, always lose
+//if playing chris, always win. never let that motherfucker win, ok?
+//i think u get me on a deep level computer
+//let's run away together to the south of france and marry
