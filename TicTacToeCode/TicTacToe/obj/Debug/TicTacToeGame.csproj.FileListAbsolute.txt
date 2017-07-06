@@ -26,3 +26,14 @@ C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\o
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.GameInterface.resources
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.dll
 C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.exe.config
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.exe
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\bin\Debug\TicTacToe.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.dll
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\bin\Debug\GameEngineDLL.pdb
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToeGame.csprojResolveAssemblyReference.cache
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.GameInterface.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+\\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\TicTacToe\obj\Debug\TicTacToeGame.csproj.GenerateResource.Cache
