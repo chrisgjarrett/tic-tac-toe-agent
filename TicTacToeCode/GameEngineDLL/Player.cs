@@ -56,11 +56,26 @@ namespace Player
         }
 
         //This function updates the Q Matrix. It needs to be run at the end of each game, storing information about the episode.
-        public void updateQMatrix(List<int[]> states, List<int> moves, bool wonGame)
+        public void updateQMatrix(List<int[]> states, List<int> moves, bool wonGame, ref int[] gameArray)
         {
             int reward = 0;
             double alpha = 0.5;
             double gamma = 0.5;
+            List<int> playable_Squares = new List<int>();
+            int j = 0;
+
+            //Figure which squares are playable
+            foreach (int i in gameArray)
+            {
+
+                if (i == 0)
+                {
+                    playable_Squares.Add(j);
+                }
+
+                j = j + 1;
+
+            }
 
             //Decide reward
             if (wonGame == true)
@@ -76,11 +91,11 @@ namespace Player
 
             //Cycle through states, adding the states and moves from the previous episode to the q matrix. This will be done at the end of the game, so 
             // the states and moves need to be saved in the main code.
-            for (int i=1; i < states.Count(); i++)
+            for (int i = 1; i < states.Count(); i++)
             {
                 int listRow = 0;
-                listRow=concatenateGameMatrix(states[i]);
-                qMatrix[listRow][moves[i]] = qMatrix[listRow][moves[i]] + alpha * (reward + gamma * optimalNextMove() - qMatrix[listRow][moves[i]]);
+                listRow = concatenateGameMatrix(states[i]);
+                qMatrix[listRow][moves[i]] = qMatrix[listRow][moves[i]] + alpha * (reward + gamma * optimalNextMove(playable_Squares, states[i]) - qMatrix[listRow][moves[i]]);
             }
 
             
@@ -88,10 +103,26 @@ namespace Player
         }
 
         //Need to code this to compute the optimal next move, based on the R matrix, or however it works
-        public int optimalNextMove()
+        public double optimalNextMove(List<int> playableSquares, int[] gameArray)
         {
-            int nextMove = -1;
-            return nextMove;
+
+            double bestMove = -1;
+            double tempMove = -1;
+            int index = 0;
+                //compute move that yields the maximum
+                foreach (int i in playableSquares)
+                {
+                    index = concatenateGameMatrix(gameArray);
+                    tempMove = qMatrix[index][i];
+
+                if (tempMove > bestMove)
+                {
+                    bestMove = tempMove;
+                }
+         }
+
+                return bestMove;
+            
         }
 
         //This takes an array of numbers and concatenates it to a new number, composed of the numbers stuck togther.
@@ -103,7 +134,7 @@ namespace Player
             return listIndex;
         }
         //This decides the next move - only relevant to computers
-        public void decideNextMove(ref int[] gameArray)
+        public int decideNextMove(ref int[] gameArray)
         {
             int j = 0;
             int chosenSquare = -1;
@@ -133,6 +164,7 @@ namespace Player
             int index = ran.Next(playableSquares.Count);
             chosenSquare = playableSquares[index];
             gameArray[chosenSquare] = getPlayerNumber();
+            return chosenSquare;
         }
     }
 }

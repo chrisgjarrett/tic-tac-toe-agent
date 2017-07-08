@@ -38,6 +38,11 @@ namespace TicTacToe
         int player1 = 0;
         int player2 = 0;
 
+        //Variables to store the states and the moves
+        List<int[]> gameStates = new List<int[]>();
+        List<int> gameMoves = new List<int>();
+        int nextMove;
+
         //Constructor
         public GameInterface()
         {
@@ -70,15 +75,16 @@ namespace TicTacToe
                     //If Human, wait for mouse click
                     gameTimer.Stop();
                 }
+
                 else
                 {
                     //Get next move from robot
-                    player1Obj.decideNextMove(ref gameMatrix);
+                    nextMove = player1Obj.decideNextMove(ref gameMatrix);
                     gameTimer.Stop();
                     updateGame();
                 }
 
-
+                
             }
 
             else
@@ -92,9 +98,12 @@ namespace TicTacToe
                 else
                 {
                     //Get next move from robot
-                    player2Obj.decideNextMove(ref gameMatrix);
+                    gameStates.Add(gameMatrix);
+                    nextMove = player2Obj.decideNextMove(ref gameMatrix);
+                    gameMoves.Add(nextMove);
                     gameTimer.Stop();
                     updateGame();
+
                 }
 
             }
@@ -472,6 +481,10 @@ namespace TicTacToe
 
             if (gameOver == true)
             {
+                if (turn == 1)
+                    player2Obj.updateQMatrix(gameStates, gameMoves, false, ref gameMatrix);
+                else
+                    player2Obj.updateQMatrix(gameStates, gameMoves, true, ref gameMatrix);
                 cleargame();
             }
             else
