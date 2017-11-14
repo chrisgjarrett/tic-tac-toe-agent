@@ -14,9 +14,21 @@ namespace Player
         bool humanStatus = false;
         int playerNumber = 0;
         int[] currentGame = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-        List<List<double>> qMatrix = new List<List<double>>();
-        
+        bool styleOfPlayIntelligent;
+        //double[,] qMatrix = new double[19861, 9];
+        Random ran;  //Random Number Generator
+        Random ranEps;
 
+        public PlayerObject()
+        {
+            ranEps = new Random();
+            ran = new Random();
+        }
+            public void setPlayerStyle(bool style)
+        {
+            styleOfPlayIntelligent = style;
+
+        }
         public void setPlayerNumber(int playerNumberToSet)
         {
             playerNumber = playerNumberToSet;
@@ -55,87 +67,12 @@ namespace Player
             return humanStatus;
         }
 
-        //This function updates the Q Matrix. It needs to be run at the end of each game, storing information about the episode.
-        public void updateQMatrix(List<int[]> states, List<int> moves, bool wonGame, ref int[] gameArray)
-        {
-            int reward = 0;
-            double alpha = 0.5;
-            double gamma = 0.5;
-            List<int> playable_Squares = new List<int>();
-            int j = 0;
 
-            //Figure which squares are playable
-            foreach (int i in gameArray)
-            {
-
-                if (i == 0)
-                {
-                    playable_Squares.Add(j);
-                }
-
-                j = j + 1;
-
-            }
-
-            //Decide reward
-            if (wonGame == true)
-            {
-                reward = 500;
-            }
-
-            else
-            {
-                reward = -500;
-            }
-
-
-            //Cycle through states, adding the states and moves from the previous episode to the q matrix. This will be done at the end of the game, so 
-            // the states and moves need to be saved in the main code.
-            for (int i = 1; i < states.Count(); i++)
-            {
-                int listRow = 0;
-                listRow = concatenateGameMatrix(states[i]);
-                qMatrix[listRow][moves[i]] = qMatrix[listRow][moves[i]] + alpha * (reward + gamma * optimalNextMove(playable_Squares, states[i]) - qMatrix[listRow][moves[i]]);
-            }
-
-            
-
-        }
-
-        //Need to code this to compute the optimal next move, based on the R matrix, or however it works
-        public double optimalNextMove(List<int> playableSquares, int[] gameArray)
-        {
-
-            double bestMove = -1;
-            double tempMove = -1;
-            int index = 0;
-                //compute move that yields the maximum
-                foreach (int i in playableSquares)
-                {
-                    index = concatenateGameMatrix(gameArray);
-                    tempMove = qMatrix[index][i];
-
-                if (tempMove > bestMove)
-                {
-                    bestMove = tempMove;
-                }
-         }
-
-                return bestMove;
-            
-        }
-
-        //This takes an array of numbers and concatenates it to a new number, composed of the numbers stuck togther.
-        //e.g. [2, 3, 4= becomes 234
-        public int concatenateGameMatrix(int[] currentGame)
-        {
-            int listIndex = 0;
-            listIndex = int.Parse(currentGame[0].ToString() + currentGame[1].ToString() + currentGame[2].ToString() + currentGame[3].ToString() + currentGame[4].ToString() + currentGame[5].ToString() + currentGame[6].ToString() + currentGame[7].ToString() + currentGame[8].ToString());
-            return listIndex;
-        }
         //This decides the next move - only relevant to computers
-        public int decideNextMove(ref int[] gameArray)
+        public int decideNextMove(ref int[] gameArray, ref double[,] qMatrix)
         {
+
+
             int j = 0;
             int chosenSquare = -1;
             List<int> playableSquares = new List<int>();
@@ -156,25 +93,140 @@ namespace Player
             //Debug - checking playable squares
             for (int ii = 0; ii < playableSquares.Count; ii++)
             {
-                System.Console.WriteLine(playableSquares[ii]);
+                //System.Console.WriteLine(playableSquares[ii]);
 
             }
-            System.Console.WriteLine(" ");
-            Random ran = new Random();
-            int index = ran.Next(playableSquares.Count);
-            chosenSquare = playableSquares[index];
-            gameArray[chosenSquare] = getPlayerNumber();
-            return chosenSquare;
+            //System.Console.WriteLine(" ");
+
+            double epsilon = 0.02;
+            //Compute a random value epsilon 
+            double randomNumber = ranEps.NextDouble();
+
+            if (randomNumber < epsilon || styleOfPlayIntelligent == false)
+            {
+                //Console.WriteLine(randomNumber);
+                
+                int index = ran.Next(playableSquares.Count);
+                chosenSquare = playableSquares[index];
+                //chosenSquare = explorationMode(playableSquares, gameArray, qMatrix); //'Exploring' by choosing least picked options
+                //Console.WriteLine("Player 2 Exploring"); - check exploration code
+                gameArray[chosenSquare] = getPlayerNumber();
+                //Console.WriteLine(chosenSquare.ToString());
+            }
+
+           else
+           {
+                chosenSquare = optimalNextMove(playableSquares, gameArray, qMatrix);
+                gameArray[chosenSquare] = getPlayerNumber();
+           }
+                return chosenSquare;
         }
+
+        //Need to code this to compute the optimal next move, based on the R matrix, or however it works
+        public int optimalNextMove(List<int> playableSquares, int[] gameMatrix, double[,] qMatrix)
+        {
+
+            double bestMoveReward = -1;
+            List<double> tempMoveReward = new List<double>();
+            int bestMove =-1;
+            int index = 0;
+            int bestMoveIndex = -1;
+            int indexTern = 0;
+            int currentGameIndex = tri2dec(concatenateGameMatrix(gameMatrix));
+
+            int j = 0;
+            int[] tempGameArray = gameMatrix;
+            //Console.WriteLine(tempGameArray);
+            //compute move that yields the maximum
+            foreach (int i in playableSquares)
+            {
+
+                //tempGameArray.Equals(gameMatrix);
+                //tempGameArray[playableSquares[j]] = getPlayerNumber();
+
+                index = concatenateGameMatrix(tempGameArray);
+                indexTern = tri2dec(index);
+                tempMoveReward.Add(qMatrix[currentGameIndex, i]);
+                
+            }
+            //Console.WriteLine(tempMoveReward.ToString());
+            bestMoveReward = tempMoveReward.Max();
+            bestMoveIndex = tempMoveReward.IndexOf(bestMoveReward);
+            bestMove = playableSquares[bestMoveIndex];
+           Console.WriteLine(bestMoveReward.ToString());
+            
+            return bestMove;
+
+        }
+
+        //Need to code this to compute the optimal next move, based on the R matrix, or however it works
+        public int explorationMode(List<int> playableSquares, int[] gameMatrix, double[,] qMatrix)
+        {
+
+            double bestMoveReward = -1;
+            List<double> tempMoveReward = new List<double>();
+            int bestMove = -1;
+            int index = 0;
+            int bestMoveIndex = -1;
+            int indexTern = 0;
+            int currentGameIndex = tri2dec(concatenateGameMatrix(gameMatrix));
+
+            int j = 0;
+            int[] tempGameArray = gameMatrix;
+            //Console.WriteLine(tempGameArray);
+            //compute move that yields the maximum
+            foreach (int i in playableSquares)
+            {
+
+                //tempGameArray.Equals(gameMatrix);
+                //tempGameArray[playableSquares[j]] = getPlayerNumber();
+
+                index = concatenateGameMatrix(tempGameArray);
+                indexTern = tri2dec(index);
+                tempMoveReward.Add(Math.Abs(qMatrix[currentGameIndex, i]));
+
+            }
+            //Console.WriteLine(tempMoveReward.ToString());
+
+            bestMoveReward = tempMoveReward.Min();
+            bestMoveIndex = tempMoveReward.IndexOf(bestMoveReward);
+            bestMove = playableSquares[bestMoveIndex];
+            Console.WriteLine(bestMoveReward.ToString());
+
+            return bestMove;
+
+        }
+
+        //Turns a number into a string of digits
+        public int concatenateGameMatrix(int[] currentGame)
+        {
+            int listIndex = 0;
+            listIndex = int.Parse(currentGame[0].ToString() + currentGame[1].ToString() + currentGame[2].ToString() + currentGame[3].ToString() + currentGame[4].ToString() + currentGame[5].ToString() + currentGame[6].ToString() + currentGame[7].ToString() + currentGame[8].ToString());
+            return listIndex;
+        }
+
+
+        //Converts ternary to decimal
+        public int tri2dec(int decNumber)
+        {
+            int b, k, n;
+            int len, sum = 0;
+            string decNumberString = decNumber.ToString();
+
+            len = decNumberString.Length - 1;
+            b = 1;
+            for (k = len; k >= 0; k--)
+            {
+                
+                n = (decNumberString[k] - '0');
+                sum = sum + n * b;
+                b = b * 3;
+            }
+            return (sum);
+        }
+
     }
+
 }
 
 
-
-//hey big willy boy
-//you know what's more fun than coding?
-//your big ol' willy
-//if playing against imo, always lose
-//if playing chris, always win. never let that motherfucker win, ok?
-//i think u get me on a deep level computer
-//let's run away together to the south of france and marry

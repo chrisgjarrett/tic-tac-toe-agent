@@ -45,6 +45,9 @@
             this.resetButton = new System.Windows.Forms.Button();
             this.ClearGameButton = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
+            this.trainPlayer1Checkbox = new System.Windows.Forms.CheckBox();
+            this.trainPlayer2Checkbox = new System.Windows.Forms.CheckBox();
+            this.usingHumanFeedbackCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -247,12 +250,48 @@
             this.button0.UseVisualStyleBackColor = false;
             this.button0.Click += new System.EventHandler(this.button0_Click);
             // 
+            // trainPlayer1Checkbox
+            // 
+            this.trainPlayer1Checkbox.AutoSize = true;
+            this.trainPlayer1Checkbox.Location = new System.Drawing.Point(321, 298);
+            this.trainPlayer1Checkbox.Name = "trainPlayer1Checkbox";
+            this.trainPlayer1Checkbox.Size = new System.Drawing.Size(119, 21);
+            this.trainPlayer1Checkbox.TabIndex = 17;
+            this.trainPlayer1Checkbox.Text = "Train Player 1";
+            this.trainPlayer1Checkbox.UseVisualStyleBackColor = true;
+            this.trainPlayer1Checkbox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // trainPlayer2Checkbox
+            // 
+            this.trainPlayer2Checkbox.AutoSize = true;
+            this.trainPlayer2Checkbox.Location = new System.Drawing.Point(321, 325);
+            this.trainPlayer2Checkbox.Name = "trainPlayer2Checkbox";
+            this.trainPlayer2Checkbox.Size = new System.Drawing.Size(119, 21);
+            this.trainPlayer2Checkbox.TabIndex = 18;
+            this.trainPlayer2Checkbox.Text = "Train Player 2";
+            this.trainPlayer2Checkbox.UseVisualStyleBackColor = true;
+            this.trainPlayer2Checkbox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // usingHumanFeedbackCheckBox
+            // 
+            this.usingHumanFeedbackCheckBox.AutoSize = true;
+            this.usingHumanFeedbackCheckBox.Location = new System.Drawing.Point(319, 352);
+            this.usingHumanFeedbackCheckBox.Name = "usingHumanFeedbackCheckBox";
+            this.usingHumanFeedbackCheckBox.Size = new System.Drawing.Size(178, 21);
+            this.usingHumanFeedbackCheckBox.TabIndex = 19;
+            this.usingHumanFeedbackCheckBox.Text = "Use Human Feedback?";
+            this.usingHumanFeedbackCheckBox.UseVisualStyleBackColor = true;
+            this.usingHumanFeedbackCheckBox.CheckedChanged += new System.EventHandler(this.usingHumanFeedbackCheckBox_CheckedChanged);
+            // 
             // GameInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(501, 388);
+            this.Controls.Add(this.usingHumanFeedbackCheckBox);
+            this.Controls.Add(this.trainPlayer2Checkbox);
+            this.Controls.Add(this.trainPlayer1Checkbox);
             this.Controls.Add(this.ClearGameButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.player2Score);
@@ -275,6 +314,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.GameInterface_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -296,6 +336,9 @@
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button ClearGameButton;
         private System.Windows.Forms.Button button0;
+        private System.Windows.Forms.CheckBox trainPlayer1Checkbox;
+        private System.Windows.Forms.CheckBox trainPlayer2Checkbox;
+        private System.Windows.Forms.CheckBox usingHumanFeedbackCheckBox;
     }
 }
 
