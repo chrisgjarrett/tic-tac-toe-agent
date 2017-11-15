@@ -98,7 +98,7 @@ namespace Player
             }
             //System.Console.WriteLine(" ");
 
-            double epsilon = 0.02;
+            double epsilon = 0.00;
             //Compute a random value epsilon 
             double randomNumber = ranEps.NextDouble();
 

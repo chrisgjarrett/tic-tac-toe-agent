@@ -637,7 +637,7 @@ namespace TicTacToe
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
                         //updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, gameStatesPlayer2.Count()+humanFeedbackReward, ref qMatrixPlayer2);
-                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 0.5*reward + humanFeedbackReward, ref qMatrixPlayer2);
                         //Console.WriteLine("updating for draw");
                         //updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -0.5*reward + humanFeedbackReward, ref qMatrixPlayer1);
                         //updateQMatrixPlayer1(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix);
@@ -971,7 +971,7 @@ namespace TicTacToe
             player1Obj.setPlayerNumber(1);
             player2Obj.setPlayerNumber(2);
             player1Obj.setPlayerStyle(true);
-            player2Obj.setPlayerStyle(false);
+            player2Obj.setPlayerStyle(true);
             /*   if (System.IO.File.Exists(@"qMatrixPlayer1.txt"))
                {
                    player1Obj.loadQMatrix();
