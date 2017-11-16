@@ -610,6 +610,7 @@ namespace TicTacToe
             {
                 //Console.Write(player2Wins.ToString());
                 ////Console.WriteLine("Uh Oh");
+
             }
 
             if (gameOver == true)
@@ -637,7 +638,7 @@ namespace TicTacToe
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
                         //updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, gameStatesPlayer2.Count()+humanFeedbackReward, ref qMatrixPlayer2);
-                        //updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 0.5*reward + humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 0.5*reward + humanFeedbackReward, ref qMatrixPlayer2);
                         //Console.WriteLine("updating for draw");
                         //updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -0.5*reward + humanFeedbackReward, ref qMatrixPlayer1);
                         //updateQMatrixPlayer1(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix);
