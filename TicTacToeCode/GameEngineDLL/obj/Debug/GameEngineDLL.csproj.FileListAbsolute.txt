@@ -8,3 +8,8 @@ C:\Users\Christopher\Documents\Tic Tac Toe\tic-tac-toe\TicTacToeCode\GameEngineD
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.csprojResolveAssemblyReference.cache
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.dll
 \\uoa.auckland.ac.nz\engdfs\Home\cjar160\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.pdb
+H:\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\bin\Debug\GameEngineDLL.dll
+H:\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\bin\Debug\GameEngineDLL.pdb
+H:\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.csprojResolveAssemblyReference.cache
+H:\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.dll
+H:\Documents\Tic-Tac-Toe-Repo\TicTacToeCode\GameEngineDLL\obj\Debug\GameEngineDLL.pdb
