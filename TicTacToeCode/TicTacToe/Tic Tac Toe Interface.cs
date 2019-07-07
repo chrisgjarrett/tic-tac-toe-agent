@@ -642,7 +642,7 @@ namespace TicTacToe
                         //updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, gameStatesPlayer2.Count()+humanFeedbackReward, ref qMatrixPlayer2);
                         updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
                         //Console.WriteLine("updating for draw");
-                        //updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -0.5*reward + humanFeedbackReward, ref qMatrixPlayer1);
+                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -10*reward + humanFeedbackReward, ref qMatrixPlayer1);
                         //updateQMatrixPlayer1(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix);
                     }
                 }
@@ -668,13 +668,13 @@ namespace TicTacToe
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
 
-                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 2*reward + humanFeedbackReward, ref qMatrixPlayer2);
                         //Console.WriteLine("Updating Player 2 Win");
                     }
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
                     {
                         //Console.WriteLine("Updating Player 1 Loss");
-                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix, -reward - humanFeedbackReward, ref qMatrixPlayer1);
+                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix, -50*reward - humanFeedbackReward, ref qMatrixPlayer1);
                     }
                 }
 
@@ -973,7 +973,7 @@ namespace TicTacToe
             //Assign Player 1 and Player 2 to human/robot - need to add smart code for this
             player1Obj.setPlayerNumber(1);
             player2Obj.setPlayerNumber(2);
-            player1Obj.setPlayerStyle(false);
+            player1Obj.setPlayerStyle(true);
             player2Obj.setPlayerStyle(true);
             /*   if (System.IO.File.Exists(@"qMatrixPlayer1.txt"))
                {
