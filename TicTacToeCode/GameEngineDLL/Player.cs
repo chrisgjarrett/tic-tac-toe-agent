@@ -153,7 +153,7 @@ namespace Player
             bestMoveReward = tempMoveReward.Max();
             bestMoveIndex = tempMoveReward.IndexOf(bestMoveReward);
             bestMove = playableSquares[bestMoveIndex];
-           Console.WriteLine(bestMoveReward.ToString());
+           //Console.WriteLine(bestMoveReward.ToString());
             
             return bestMove;
 
