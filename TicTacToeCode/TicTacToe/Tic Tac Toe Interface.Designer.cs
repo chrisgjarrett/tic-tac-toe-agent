@@ -157,10 +157,7 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Turn";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // displayTurn
-            // 
+
             this.displayTurn.BackColor = System.Drawing.SystemColors.Control;
             this.displayTurn.Location = new System.Drawing.Point(316, 43);
             this.displayTurn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -341,4 +338,3 @@
         private System.Windows.Forms.CheckBox usingHumanFeedbackCheckBox;
     }
 }
-

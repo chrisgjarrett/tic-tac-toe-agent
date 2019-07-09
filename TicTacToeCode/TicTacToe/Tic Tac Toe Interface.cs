@@ -54,10 +54,9 @@ namespace TicTacToe
         List<int> gameStatesPlayer1 = new List<int>();
         List<int> gameMovesPlayer1 = new List<int>();
         int nextMove;
-        //        List<List<double>> qMatrixPlayer2 = new List<List<double>>();
-
         bool player2Wins;
         bool isDraw=false;
+
         //Constructor
         public GameInterface()
         {
@@ -109,12 +108,13 @@ namespace TicTacToe
 
         }
 
-        //This is the function called when the timer fires
+        //This is the function called when the timer fires. It controls the game and is in charge of updating the agents
         private void gameEngine(Object sender, EventArgs e)
         {
             //Stop Game Timer until next move
             gameTimer.Stop();
 
+            //Player 1's turn
             if (turn == 1)
             {
                 if (player1Obj.getHumanStatus() == true)
@@ -129,6 +129,8 @@ namespace TicTacToe
                     int gameMatrixString = concatenateGameMatrix(gameMatrix);
                     int gameMatrixTernIndex = tri2dec(gameMatrixString);
                     gameStatesPlayer1.Add(gameMatrixTernIndex);
+
+                    //This function computes the next optimal move, based on player intelligence and the current game board.
                     nextMove = player1Obj.decideNextMove(ref gameMatrix, ref qMatrixPlayer1);
                     gameMovesPlayer1.Add(nextMove);
                     gameTimer.Stop();
@@ -138,6 +140,7 @@ namespace TicTacToe
 
             }
 
+            //Player 2's turn
             else
             {
                 if (player2Obj.getHumanStatus() == true)
@@ -146,27 +149,26 @@ namespace TicTacToe
                     gameTimer.Stop();
 
                 }
+
                 else
                 {
                     //Get next move from robot
                     int gameMatrixString = concatenateGameMatrix(gameMatrix);
                     int gameMatrixTernIndex = tri2dec(gameMatrixString);
                     gameStatesPlayer2.Add(gameMatrixTernIndex);
-                    nextMove = player2Obj.decideNextMove(ref gameMatrix, ref qMatrixPlayer2); //Passing in Player 1's matrix atm to explore its least used squares
+                    nextMove = player2Obj.decideNextMove(ref gameMatrix, ref qMatrixPlayer2); //Optimal move based on player 2's learning and the game board
                     gameMovesPlayer2.Add(nextMove);
                     gameTimer.Stop();
                     updateGame();
 
                 }
-
             }
-            //Console.WriteLine(tri2dec(concatenateGameMatrix(gameMatrix)));
         }
 
-        //Updates the gameplay
+        //Updates the UI with a nought or a cross, depending on who's turn it is
         public void updateGame()
         {
-
+            //Update UI based on the run boolean and which button was clicked
             if (gameMatrix[0] == 2)
             {
                 button0.Text = "O";
@@ -308,12 +310,9 @@ namespace TicTacToe
 
             //Check if there is a winner
             checkit();
-
-
-
         }
 
-        //THis displays whose turn it is
+        //This displays whose turn it is
         public void display()
         {
             if (turn == 1)
@@ -326,11 +325,13 @@ namespace TicTacToe
             }
         }
 
-        //This function checks the current game status to see if there is a winner
+        //This function checks the current game status to see if there is a winner. It currently iterates through every possible
+        //combination, checking if there is a 'three in a row'. Messages are only displayed if one player is human
         public void checkit()
         {
             bool gameOver = false;
-            //Start with BUtton 1 and check 123, 159, 147
+
+            //Start with Button 1 and check 123, 159, 147
             if (gameMatrix[0] == gameMatrix[1] && gameMatrix[0] == gameMatrix[2] && gameMatrix[0] != 0)
             {
                 button0.BackColor = Color.Green;
@@ -397,8 +398,6 @@ namespace TicTacToe
                 isDraw = false;
             }
 
-
-
             else if (gameMatrix[0] == gameMatrix[3] && gameMatrix[0] == gameMatrix[6] && gameMatrix[0] != 0)
             {
                 button0.BackColor = Color.Green;
@@ -430,8 +429,6 @@ namespace TicTacToe
                 gameOver = true;
                 isDraw = false;
             }
-
-
 
             else if (gameMatrix[1] == gameMatrix[4] && gameMatrix[1] == gameMatrix[7] && gameMatrix[1] != 0)
             {
@@ -530,8 +527,6 @@ namespace TicTacToe
                 isDraw = false;
             }
 
-
-
             else if (gameMatrix[3] == gameMatrix[4] && gameMatrix[3] == gameMatrix[5] && gameMatrix[3] != 0)
             {
                 button3.BackColor = Color.Green;
@@ -597,6 +592,7 @@ namespace TicTacToe
                 gameOver = true;
                 isDraw = false;
             }
+
             //Case of a draw
             else if (gameMatrix[0] != 0 && gameMatrix[1] != 0 && gameMatrix[2] != 0 && gameMatrix[3] != 0 && gameMatrix[4] != 0 && gameMatrix[5] != 0 && gameMatrix[6] != 0 && gameMatrix[7] != 0 && gameMatrix[8] != 0)
             {
@@ -605,14 +601,7 @@ namespace TicTacToe
                     MessageBox.Show("Draw!");
                 }
                 gameOver = true;
-
                 isDraw = true;
-            }
-            else
-            {
-                //Console.Write(player2Wins.ToString());
-                ////Console.WriteLine("Uh Oh");
-
             }
 
             if (gameOver == true)
@@ -620,6 +609,7 @@ namespace TicTacToe
                 //Get some human feedback
                 int humanFeedbackReward = 0;
 
+                //Obtain the human feedback - they score the agent. Could potentially speed up training.
                 if (useHumanFeedback == true)
                 {
                     if ((player1Obj.getHumanStatus() == true && player2Obj.getHumanStatus() == false) || (player1Obj.getHumanStatus() == false && player2Obj.getHumanStatus() == true))
@@ -632,52 +622,55 @@ namespace TicTacToe
                     humanFeedbackReward = 0;
                 }
 
-                //Only update if robot is playing
+                //Only update if robot is playing and we train them
                 double reward = 1;
                 if (isDraw == true)     //Don't know if Player 1 should be penalised for a draw or not.......-could stop penalising after a certain time????
                 {
                     //Console.WriteLine("Draw!");
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
-                        //updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, gameStatesPlayer2.Count()+humanFeedbackReward, ref qMatrixPlayer2);
+                        //Player 2 is rewarded for a draw - best possible outcome for 2 expert players
                         updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
-                        //Console.WriteLine("updating for draw");
-                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -10*reward + humanFeedbackReward, ref qMatrixPlayer1);
-                        //updateQMatrixPlayer1(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix);
+
+                        //Player 1 is slightly penalised for a draw - otherwise they play for a draw when they could win
+                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -10*reward - humanFeedbackReward, ref qMatrixPlayer1);
                     }
                 }
+
+                //Player 1 won
                 else if (player2Wins == false)
                 {
-                   // Console.WriteLine("PLyaer 1 Wins!");
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
-
+                        //Penalise player 2 for the loss - an expert player should draw
                         updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, -50*reward - humanFeedbackReward, ref qMatrixPlayer2);
-                        //Console.WriteLine("updating player 2 Loss");
                     }
 
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
                     {
-                       // Console.WriteLine("updating player 1 Win");
+                        //Reward Player 1 for the win
                         updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer1);
                     }
                 }
+
+                //Player 2 won
                 else if (player2Wins == true)
                 {
                     //Console.WriteLine("PLayer 2 Wins");
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
-
+                        //Reward Player 2
                         updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 2*reward + humanFeedbackReward, ref qMatrixPlayer2);
-                        //Console.WriteLine("Updating Player 2 Win");
                     }
+
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
                     {
-                        //Console.WriteLine("Updating Player 1 Loss");
+                        //Penalise Player 1 heavily - a loss is not acceptable
                         updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix, -50*reward - humanFeedbackReward, ref qMatrixPlayer1);
                     }
                 }
 
+                //If we are training the agents, save their QMatrices
                 if (trainPlayer1 == true)
                 {
                     saveQMatrixPlayer1();
@@ -691,6 +684,8 @@ namespace TicTacToe
 
 
             }
+
+            //No winner yet, keep playing and don't change Q matrices
             else
             {
                 //Update the turn
@@ -707,8 +702,6 @@ namespace TicTacToe
                 display();
                 gameTimer.Start();
             }
-
-
         }
 
         //Turns a number into a string of digits
@@ -719,43 +712,29 @@ namespace TicTacToe
             return listIndex;
         }
 
-        //This function updates the Q Matrix for Player 2. It needs to be run at the end of each game, storing information about the episode.
+        //This function updates the Q Matrix for a given player. It needs to be run at the end of each game, storing information about the episode.
         public void updateQMatrix(List<int> states, List<int> moves, bool wonGame, ref int[] gameArray, double reward, ref double[,] qMatrix)
         {
-            //int reward = 0;
             double alpha = 1;
             double gamma = 0.5;
             List<int> playable_Squares = new List<int>();
             int j = 0;
 
-
-
-            //Console.WriteLine(states.Count().ToString());
             //Cycle through states, adding the states and moves from the previous episode to the q matrix. This will be done at the end of the game, so 
-            // the states and moves need to be saved in the main code.
+            //the states and moves need to be saved in the main code.
             double delayFactor = 1;
             int maxStatesToAdd = states.Count();
-            //Console.WriteLine(maxStatesToAdd.ToString());
             for (int i = 0; i < states.Count(); i++)
             {
-                /*int listRow = 0;
-                int listRowTernaryIndex = 0;
-                listRow = concatenateGameMatrix(states[i]);
-                Console.WriteLine(listRow.ToString());
-                listRowTernaryIndex = tri2dec(listRow);*/
-
                 qMatrix[states[i], moves[i]] = qMatrix[states[i], moves[i]] + (reward) * delayFactor;
-                // Console.WriteLine(qMatrixPlayer2[states[i], moves[i]].ToString());
                 delayFactor = delayFactor + 0;
             }
-
-
-
-
         }
 
 
-        //Converts ternary to decimal
+        //Converts ternary to decimal. This is used as part of an encoding system for reducing the size of the game matrix file.
+        //The game matrix is a size-9 vector with either 0,1,2. Assuming it is a ternary number and converting to decimal for file storage is more
+        //efficient
         public int tri2dec(int decNumber)
         {
             int b, k, n;
@@ -774,11 +753,11 @@ namespace TicTacToe
             return (sum);
         }
 
-        //Resets the game
+        //Resets the game - clears UI and sets scores to 0
         public void resetgame()
 
         {
-            //            displayTurn.Text = "Player 1";
+            //Clears UI
             player1Score.Text = "0";
             player2Score.Text = "0";
             player1 = 0;
@@ -835,11 +814,14 @@ namespace TicTacToe
             gameTimer.Start();
         }
 
-        //Clears the game
+        //Clears the game - same as UI but scores are not set to 0
         public void cleargame()
         {
 
+            //Resets the turn to player 1
             turn = 1;
+
+            //Resets all boolean indicators - so no squares have been clicked
             click0 = 0;
             click1 = 0;
             click2 = 0;
@@ -849,11 +831,14 @@ namespace TicTacToe
             click6 = 0;
             click7 = 0;
             click8 = 0;
+
+            //Clears the states and moves for each player
             gameStatesPlayer1.Clear();
             gameMovesPlayer1.Clear();
             gameStatesPlayer2.Clear();
             gameMovesPlayer2.Clear();
 
+            //Clears the UI
             button0.BackColor = Color.LightGray;
             button0.ForeColor = Color.Black;
             button0.Text = "";
@@ -891,7 +876,6 @@ namespace TicTacToe
             button8.Text = "";
 
             //SaveQ MAtrix
-
             Array.Clear(gameMatrix, 0, gameMatrix.Length);
             display();
             gameTimer.Start();
@@ -952,7 +936,7 @@ namespace TicTacToe
             // Display the form as a modal dialog box.
             form1.ShowDialog();
 
-            //Assign human status to players 
+            //Assign human status to players - determines if the agent plays or not 
             humanPlaying = false;
             if (checkPlayer1.Checked)
             {
@@ -975,14 +959,7 @@ namespace TicTacToe
             player2Obj.setPlayerNumber(2);
             player1Obj.setPlayerStyle(true);
             player2Obj.setPlayerStyle(true);
-            /*   if (System.IO.File.Exists(@"qMatrixPlayer1.txt"))
-               {
-                   player1Obj.loadQMatrix();
-               }
-               if (System.IO.File.Exists(@"qMatrixPlayer2.txt"))
-               {
-                   loadQMatrix();
-               }*/
+
         }
 
         //This function calls a dialog box to determine which players are human and which are robots
@@ -1069,23 +1046,17 @@ namespace TicTacToe
             return reward;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+         //These functions wait for mouse clicks - only applicable if human player. There is one per square on the tic tac toe board.
+        //When a button is clicked, updateGame updates scores, and rewards the agents based on their moves. Turn is a value of either 1 or 2, 
+        //and game matrix is a vector that records who has taken which squares
 
-        }
-
-        //These functions wait for mouse clicks - only applicable if human player
         private void button0_Click(object sender, EventArgs e)
         {
             if (click0 == 0)
             {
                 gameMatrix[0] = turn;
                 updateGame();
-
             }
-
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1094,15 +1065,7 @@ namespace TicTacToe
             {
                 gameMatrix[1] = turn;               //turn
                 updateGame();
-
             }
-
-            else
-            {
-                button1.Text = button1.Text;
-            }
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1111,14 +1074,7 @@ namespace TicTacToe
             {
                 gameMatrix[2] = turn;
                 updateGame();
-                //turn++;
             }
-            else
-            {
-                //button2.Text = button2.Text;
-            }
-            //display();
-            //checkit();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1127,13 +1083,7 @@ namespace TicTacToe
             {
                 gameMatrix[3] = turn;
                 updateGame();
-                //turn++;
             }
-            else
-            {
-                button3.Text = button3.Text;
-            }
-
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -1142,14 +1092,7 @@ namespace TicTacToe
             {
                 gameMatrix[4] = turn;
                 updateGame();
-                //turn++;
             }
-            else
-            {
-                //button4.Text = button4.Text;
-            }
-
-
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -1158,13 +1101,7 @@ namespace TicTacToe
             {
                 gameMatrix[5] = turn;
                 updateGame();
-                //turn++;
             }
-            else
-            {
-                //button5.Text = button5.Text;
-            }
-
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -1173,14 +1110,7 @@ namespace TicTacToe
             {
                 gameMatrix[6] = turn;
                 updateGame();
-                //turn++;
             }
-            else
-            {
-                //      button6.Text = button6.Text;
-            }
-
-
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -1190,11 +1120,6 @@ namespace TicTacToe
                 gameMatrix[7] = turn;
                 updateGame();
             }
-            else
-            {
-                //button7.Text = button7.Text;
-            }
-
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1203,11 +1128,6 @@ namespace TicTacToe
             {
                 gameMatrix[8] = turn;
                 updateGame();
-                //turn++;
-            }
-            else
-            {
-                //button8.Text = button8.Text;
             }
         }
 
@@ -1229,13 +1149,13 @@ namespace TicTacToe
         }
 
 
-
+        //This saves the update matrix to file
         public void saveQMatrixPlayer2()
         {
 
             System.IO.StreamWriter sw = new System.IO.StreamWriter("qMatrixPlayer2.txt");
 
-
+            //Loop through each of the scores for each game configuration
             for (int i = 0; i < qMatrixPlayer2.GetLength(0); i++)
             {
                 for (int j = 0; j < qMatrixPlayer2.GetLength(1); j++)
@@ -1248,14 +1168,14 @@ namespace TicTacToe
             sw.Close();
         }
 
+        //Reads the update matrix
         public void loadQMatrixPlayer2()
-        {
-
-
+        { 
             int counter = 0;
             int k = 0;
             string line;
             double[] temp = new double[178749];
+
             // Read the file and display it line by line.
             System.IO.StreamReader file = new System.IO.StreamReader("qMatrixPlayer2.txt");
             while ((line = file.ReadLine()) != null)
@@ -1264,30 +1184,29 @@ namespace TicTacToe
                 temp[counter] = Convert.ToDouble(line);
                 counter++;
             }
-            //Console.WriteLine(temp[24]);
+
+            //Loop through each of the scores for each game configuration
             for (int i = 0; i < 19861; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
                     qMatrixPlayer2[i, j] = temp[k];
                     k = k + 1;
-
                 }
-
             }
+
             // Console.WriteLine(qMatrixPlayer2[2,6]);
             file.Close();
 
-            // Suspend the screen.
-            //Console.ReadLine();
         }
 
+        //Saves the update matrix for player 1
         public void saveQMatrixPlayer1()
         {
 
             System.IO.StreamWriter sw = new System.IO.StreamWriter("qMatrixPlayer1.txt");
 
-
+            //Loop through each of the scores for each game configuration
             for (int i = 0; i < qMatrixPlayer1.GetLength(0); i++)
             {
                 for (int j = 0; j < qMatrixPlayer1.GetLength(1); j++)
@@ -1300,14 +1219,14 @@ namespace TicTacToe
             sw.Close();
         }
 
+        //Read the update matrix for Player 1
         public void loadQMatrixPlayer1()
         {
-
-
             int counter = 0;
             int k = 0;
             string line;
             double[] temp = new double[178749];
+            
             // Read the file and display it line by line.
             System.IO.StreamReader file = new System.IO.StreamReader("qMatrixPlayer1.txt");
             while ((line = file.ReadLine()) != null)
@@ -1317,23 +1236,22 @@ namespace TicTacToe
                 counter++;
             }
 
+            //Loop through each of the scores for each game configuration
             for (int i = 0; i < 19861; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
                     qMatrixPlayer1[i, j] = temp[k];
                     k = k + 1;
-
                 }
 
             }
             // Console.WriteLine(qMatrixPlayer2[2,6]);
             file.Close();
 
-            // Suspend the screen.
-            //Console.ReadLine();
         }
 
+        //Reads in whether the player 1 agent is being trained or not
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (trainPlayer1Checkbox.Checked == true)
@@ -1347,6 +1265,7 @@ namespace TicTacToe
             }
         }
 
+        //Reads in whether the player 2 agent is being trained or not
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (trainPlayer2Checkbox.Checked == true)
@@ -1360,6 +1279,7 @@ namespace TicTacToe
             }
         }
 
+        //Reads in whether we are using human feedback to train the agent
         private void usingHumanFeedbackCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (usingHumanFeedbackCheckBox.Checked == true)
@@ -1373,5 +1293,4 @@ namespace TicTacToe
             }
         }
     }
-
 }
