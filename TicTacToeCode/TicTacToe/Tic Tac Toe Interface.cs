@@ -111,6 +111,41 @@ namespace TicTacToe
         //This is the function called when the timer fires. It controls the game and is in charge of updating the agents
         private void gameEngine(Object sender, EventArgs e)
         {
+            //Updates whether the agents are smart or dumb - not sure of the best place for this code
+            if (player1Obj.getHumanStatus() == true || player2Obj.getHumanStatus() == true)
+            {
+                if (player1Obj.getHumanStatus() == true)
+                {
+                    player2Obj.setPlayerStyle(true);
+                }
+                if (player2Obj.getHumanStatus() == true)
+                {
+                    player1Obj.setPlayerStyle(true);
+                }
+
+
+            }
+            //No humans playing, train the agents
+            else
+            {
+                if (trainPlayer1 == true && trainPlayer2 == false)
+                {
+                    player1Obj.setPlayerStyle(true);
+                    player2Obj.setPlayerStyle(false);
+                }
+                else if (trainPlayer1 == false && trainPlayer2 == true)
+                {
+                    player1Obj.setPlayerStyle(false);
+                    player2Obj.setPlayerStyle(true);
+                }
+                //If both are training, make them smart
+                else
+                {
+                    player1Obj.setPlayerStyle(true);
+                    player2Obj.setPlayerStyle(true);
+                }
+            }
+
             //Stop Game Timer until next move
             gameTimer.Stop();
 
@@ -650,6 +685,7 @@ namespace TicTacToe
             return gameOver;
         }
 
+        //Rewards the agents
         public void trainAgents(int gameOver)
         {
             //Get some human feedback
@@ -669,11 +705,11 @@ namespace TicTacToe
                 }
             }
 
-            //Only update if robot is playing and we train them
+            //Only update if robot is playing and we are training them
             double reward = 1;
-
             switch (gameOver)
             {
+                //It's a draw
                 case 3:     //Don't know if Player 1 should be penalised for a draw or not.......-could stop penalising after a certain time????
 
                     //Console.WriteLine("Draw!");
@@ -689,7 +725,6 @@ namespace TicTacToe
 
                 //Player 1 won
                 case 1:
-
 
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
@@ -711,7 +746,7 @@ namespace TicTacToe
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
                         //Reward Player 2
-                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 2 * reward + humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
                     }
 
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
@@ -1011,8 +1046,8 @@ namespace TicTacToe
             //Assign Player 1 and Player 2 to human/robot - need to add smart code for this
             player1Obj.setPlayerNumber(1);
             player2Obj.setPlayerNumber(2);
-            player1Obj.setPlayerStyle(true);
-            player2Obj.setPlayerStyle(true);
+
+            
 
         }
 
