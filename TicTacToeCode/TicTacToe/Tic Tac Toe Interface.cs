@@ -55,7 +55,7 @@ namespace TicTacToe
         List<int> gameMovesPlayer1 = new List<int>();
         int nextMove;
         bool player2Wins;
-        bool isDraw=false;
+        bool isDraw = false;
 
         //Constructor
         public GameInterface()
@@ -168,6 +168,9 @@ namespace TicTacToe
         //Updates the UI with a nought or a cross, depending on who's turn it is
         public void updateGame()
         {
+            //A variable determining if the game is over
+            int gameOver = 0;
+
             //Update UI based on the run boolean and which button was clicked
             if (gameMatrix[0] == 2)
             {
@@ -309,7 +312,31 @@ namespace TicTacToe
             }
 
             //Check if there is a winner
-            checkit();
+            gameOver = checkit();
+
+            //If it is game over, train the agents
+            if (gameOver != 0)
+            {
+                trainAgents(gameOver);
+            }
+
+            //Else keep playing
+            else
+            {
+                //Update the turn
+                if (turn == 1)
+                {
+                    turn = 2;
+                }
+
+                else
+                {
+                    turn = 1;
+                }
+
+                display();
+                gameTimer.Start();
+            }
         }
 
         //This displays whose turn it is
@@ -327,9 +354,10 @@ namespace TicTacToe
 
         //This function checks the current game status to see if there is a winner. It currently iterates through every possible
         //combination, checking if there is a 'three in a row'. Messages are only displayed if one player is human
-        public void checkit()
+        public int checkit()
         {
-            bool gameOver = false;
+            //0 = no result yet, 1=player 1 wins, 2=player 2 wins, 3=draw
+            int gameOver = 0;
 
             //Start with Button 1 and check 123, 159, 147
             if (gameMatrix[0] == gameMatrix[1] && gameMatrix[0] == gameMatrix[2] && gameMatrix[0] != 0)
@@ -350,6 +378,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -360,8 +389,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -383,6 +412,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -393,8 +423,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -415,6 +445,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -425,8 +456,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -447,6 +478,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -457,8 +489,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -479,6 +511,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -489,8 +522,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -512,6 +545,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -522,8 +556,9 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
+
                 isDraw = false;
             }
 
@@ -543,7 +578,7 @@ namespace TicTacToe
                     }
                     player1++;
                     player1Score.Text = player1.ToString();
-                    player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -554,8 +589,9 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
+
                 isDraw = false;
             }
 
@@ -578,6 +614,7 @@ namespace TicTacToe
                     player1++;
                     player1Score.Text = player1.ToString();
                     player2Wins = false;
+                    gameOver = 1;
                 }
                 else
                 {
@@ -588,8 +625,8 @@ namespace TicTacToe
                     player2++;
                     player2Score.Text = player2.ToString();
                     player2Wins = true;
+                    gameOver = 2;
                 }
-                gameOver = true;
                 isDraw = false;
             }
 
@@ -600,32 +637,45 @@ namespace TicTacToe
                 {
                     MessageBox.Show("Draw!");
                 }
-                gameOver = true;
+                gameOver = 3;
                 isDraw = true;
             }
 
-            if (gameOver == true)
+            //Still playing
+            else
             {
-                //Get some human feedback
-                int humanFeedbackReward = 0;
+                gameOver = 0;
+            }
 
-                //Obtain the human feedback - they score the agent. Could potentially speed up training.
-                if (useHumanFeedback == true)
+            return gameOver;
+        }
+
+        public void trainAgents(int gameOver)
+        {
+            //Get some human feedback
+            int humanFeedbackReward = 0;
+
+            //Obtain the human feedback - they score the agent's performance. Could potentially speed up training.
+            if (useHumanFeedback == true)
+            {
+                if ((player1Obj.getHumanStatus() == true && player2Obj.getHumanStatus() == false) || (player1Obj.getHumanStatus() == false && player2Obj.getHumanStatus() == true))
                 {
-                    if ((player1Obj.getHumanStatus() == true && player2Obj.getHumanStatus() == false) || (player1Obj.getHumanStatus() == false && player2Obj.getHumanStatus() == true))
-                    {
-                        humanFeedbackReward = getHumanFeedback();
-                    }
+                    humanFeedbackReward = getHumanFeedback();
+
                 }
                 else
                 {
                     humanFeedbackReward = 0;
                 }
+            }
 
-                //Only update if robot is playing and we train them
-                double reward = 1;
-                if (isDraw == true)     //Don't know if Player 1 should be penalised for a draw or not.......-could stop penalising after a certain time????
-                {
+            //Only update if robot is playing and we train them
+            double reward = 1;
+
+            switch (gameOver)
+            {
+                case 3:     //Don't know if Player 1 should be penalised for a draw or not.......-could stop penalising after a certain time????
+
                     //Console.WriteLine("Draw!");
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
@@ -633,17 +683,18 @@ namespace TicTacToe
                         updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer2);
 
                         //Player 1 is slightly penalised for a draw - otherwise they play for a draw when they could win
-                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -10*reward - humanFeedbackReward, ref qMatrixPlayer1);
+                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, -10 * reward - humanFeedbackReward, ref qMatrixPlayer1);
                     }
-                }
+                    break;
 
                 //Player 1 won
-                else if (player2Wins == false)
-                {
+                case 1:
+
+
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
                         //Penalise player 2 for the loss - an expert player should draw
-                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, -50*reward - humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, -50 * reward - humanFeedbackReward, ref qMatrixPlayer2);
                     }
 
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
@@ -651,57 +702,60 @@ namespace TicTacToe
                         //Reward Player 1 for the win
                         updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, true, ref gameMatrix, reward + humanFeedbackReward, ref qMatrixPlayer1);
                     }
-                }
 
+                    break;
                 //Player 2 won
-                else if (player2Wins == true)
-                {
+                case 2:
+
                     //Console.WriteLine("PLayer 2 Wins");
                     if (player2Obj.getHumanStatus() == false && trainPlayer2 == true)
                     {
                         //Reward Player 2
-                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 2*reward + humanFeedbackReward, ref qMatrixPlayer2);
+                        updateQMatrix(gameStatesPlayer2, gameMovesPlayer2, true, ref gameMatrix, 2 * reward + humanFeedbackReward, ref qMatrixPlayer2);
                     }
 
                     if (player1Obj.getHumanStatus() == false && trainPlayer1 == true)
                     {
                         //Penalise Player 1 heavily - a loss is not acceptable
-                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix, -50*reward - humanFeedbackReward, ref qMatrixPlayer1);
+                        updateQMatrix(gameStatesPlayer1, gameMovesPlayer1, false, ref gameMatrix, -50 * reward - humanFeedbackReward, ref qMatrixPlayer1);
                     }
-                }
-
-                //If we are training the agents, save their QMatrices
-                if (trainPlayer1 == true)
-                {
-                    saveQMatrixPlayer1();
-                }
-                if (trainPlayer2 == true)
-                {
-                    saveQMatrixPlayer2();
-                }
-                
-                cleargame();
-
-
+                    break;
             }
+
+            //If we are training the agents, save their QMatrices
+            if (trainPlayer1 == true)
+            {
+                saveQMatrixPlayer1();
+            }
+            if (trainPlayer2 == true)
+            {
+                saveQMatrixPlayer2();
+            }
+
+
+            cleargame();
+
+
+
+
 
             //No winner yet, keep playing and don't change Q matrices
-            else
-            {
-                //Update the turn
-                if (turn == 1)
-                {
-                    turn = 2;
-                }
+            /*  else
+              {
+                  //Update the turn
+                  if (turn == 1)
+                  {
+                      turn = 2;
+                  }
 
-                else
-                {
-                    turn = 1;
-                }
+                  else
+                  {
+                      turn = 1;
+                  }
 
-                display();
-                gameTimer.Start();
-            }
+                  display();
+                  gameTimer.Start();
+              }*/
         }
 
         //Turns a number into a string of digits
@@ -1046,7 +1100,7 @@ namespace TicTacToe
             return reward;
         }
 
-         //These functions wait for mouse clicks - only applicable if human player. There is one per square on the tic tac toe board.
+        //These functions wait for mouse clicks - only applicable if human player. There is one per square on the tic tac toe board.
         //When a button is clicked, updateGame updates scores, and rewards the agents based on their moves. Turn is a value of either 1 or 2, 
         //and game matrix is a vector that records who has taken which squares
 
@@ -1170,7 +1224,7 @@ namespace TicTacToe
 
         //Reads the update matrix
         public void loadQMatrixPlayer2()
-        { 
+        {
             int counter = 0;
             int k = 0;
             string line;
@@ -1226,7 +1280,7 @@ namespace TicTacToe
             int k = 0;
             string line;
             double[] temp = new double[178749];
-            
+
             // Read the file and display it line by line.
             System.IO.StreamReader file = new System.IO.StreamReader("qMatrixPlayer1.txt");
             while ((line = file.ReadLine()) != null)
